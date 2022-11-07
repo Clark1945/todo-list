@@ -38,3 +38,27 @@ body{
   float: right;
   margin: 1px;
 }
+
+
+@media (max-width: 320px) {
+  .title_i {
+    font-size: 200%;
+  }
+  .content_i {
+    font-size: 200%;
+  }
+  .but {
+    font-size: 200%;
+  }
+}
+@media (max-width: 720px) {
+  .title_i {
+    font-size: 150%;
+  }
+  .content_i {
+    font-size: 150%;
+  }
+  .but {
+    font-size: 150%;
+  }
+}
