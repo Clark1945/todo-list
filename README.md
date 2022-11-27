@@ -17,3 +17,7 @@
 ※ 設定連線時，不使用localhost，用IP位址來提升精確性。  
 ※ 於Robo3T建立database時， 若是沒有新增任何資料進去，會在軟體關閉後被刪除。  
 ※ 資料庫另外存在一個模組中。  
+##### 20221127更新
+如果發現MongoDBNetworkError，可進Task Manager Service查看MongoDB服務是否正常開啟。
+
+
