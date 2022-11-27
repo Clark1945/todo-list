@@ -1,6 +1,9 @@
 function addList(){
     var _title = $('#title').val();
     var _message = $('#message').val();
+    const reg = /<\/*[a-z]+>/;
+    _title=_title.replace(reg,'')
+    _message=_message.replace(reg,'')
 
     if (_title == '' || _message == ''){
         alert("欄位未輸入");
@@ -16,11 +19,15 @@ function addList(){
     }
 }
 function newList(data){
+
     var status = (data.status)?"checked":"";
     var titleClass = (data.status)?"title2":"title";
     var messageClass = (data.status)?"message2":"message";
     var editClass = (data.status)?"none":"inline";
 
+    // var aa=xss(data._id);
+    // var bb=xss(data._content);
+    
     var content = `
     <div class="content" id="${data._id}">
         <div class="${titleClass}">
