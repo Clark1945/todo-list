@@ -9,7 +9,7 @@ function addList(){
         alert("欄位未輸入");
     }
     else{
-        $.post("http://localhost:3031/api/addList",{'title':_title,content:_message},
+        $.post("http://localhost:3031/api/List",{'title':_title,content:_message},
         function (res){
             // console.log(res.data);
             newList(res.data);
@@ -25,8 +25,6 @@ function newList(data){
     var messageClass = (data.status)?"message2":"message";
     var editClass = (data.status)?"none":"inline";
 
-    // var aa=xss(data._id);
-    // var bb=xss(data._content);
     
     var content = `
     <div class="content" id="${data._id}">
@@ -51,7 +49,7 @@ function newList(data){
 }
 
 function getList(){
-    $.get("http://localhost:3031/api/getList",function(data,status){
+    $.get("http://localhost:3031/api/List",function(data,status){
         for (var i=0;i<data.length;i++){
             newList(data[i])
         }
@@ -87,26 +85,54 @@ function updateList(id){
     var title = $('#edit_title'+id).val();
     var message = $('#edit_message'+id).val();
 
-    $.post("http://localhost:3031/api/updateList",{'id':id,'title':title,'content':message},function (res){
-        if (res.status==0){
-            $('#title'+id).text(title); // title中顯示文字
-            $('#message'+id).text(message); //message中顯示文字
-            $('#edit'+id).css("display","inline"); //edit顯示
-            $('#update'+id).css("display","none"); //update隱藏
-            $('#title'+id).css("display","inline"); 
-            $('#message'+id).css("display","inline");
-            $('#edit_title'+id).remove();
-            $('#edit_message'+id).remove();
-        }
-    });
+            $.ajax({
+            url:"http://localhost:3031/api/List",
+            data:{'id':id,'title':title,'content':message},
+            type:"PUT",
+            success:function (res){
+                if (res.status==0){
+                    $('#title'+id).text(title); // title中顯示文字
+                    $('#message'+id).text(message); //message中顯示文字
+                    $('#edit'+id).css("display","inline"); //edit顯示
+                    $('#update'+id).css("display","none"); //update隱藏
+                    $('#title'+id).css("display","inline"); 
+                    $('#message'+id).css("display","inline");
+                    $('#edit_title'+id).remove();
+                    $('#edit_message'+id).remove();
+                }
+            }
+        });
+    // $.post("http://localhost:3031/api/updateList",{'id':id,'title':title,'content':message},function (res){
+    //     if (res.status==0){
+    //         $('#title'+id).text(title); // title中顯示文字
+    //         $('#message'+id).text(message); //message中顯示文字
+    //         $('#edit'+id).css("display","inline"); //edit顯示
+    //         $('#update'+id).css("display","none"); //update隱藏
+    //         $('#title'+id).css("display","inline"); 
+    //         $('#message'+id).css("display","inline");
+    //         $('#edit_title'+id).remove();
+    //         $('#edit_message'+id).remove();
+    //     }
+    // });
 }
 
 function removeList(id){
-    $.post("http://localhost:3031/api/removeList",{"id":id},function (res){
-        if (res.status==0){
-            $('#'+id).remove();
+    $.ajax({
+        url:"http://localhost:3031/api/List",
+        data:{'id':id},
+        type:"DELETE",
+        success:function (res){
+            if (res.status==0){
+                $('#'+id).remove();
+            }
         }
     });
+    // $.post("http://localhost:3031/api/List",{"id":id},function (res){
+    //     if (res.status==0){
+    //         $('#'+id).remove();
+    //     }
+    // });
+
 }
 
 function changeStatus(id,btnStatus){

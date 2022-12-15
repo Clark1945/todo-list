@@ -4,7 +4,7 @@ var listModel = require('../models/listModel.js');
 // var listModel=[];
 var id=1;
 
-router.post('/addList',function (req,res){
+router.post('/List',function (req,res){
     // var newList= {
     //     _id:id,
     //     title:req.body.title,
@@ -31,7 +31,7 @@ router.post('/addList',function (req,res){
     // res.json({"status":0,"msg":"success","data":newList});
 });
 
-router.get('/getList',function (req,res){
+router.get('/List',function (req,res){
     listModel.find(function (err,data){
         if (err){console.log(err); }
         res.json(data);
@@ -39,7 +39,7 @@ router.get('/getList',function (req,res){
     // res.json(listModel);
 });
 
-router.post('/updateList',function(req,res){
+router.put('/List',function(req,res){
     var id = req.body.id;
     listModel.findById(id,function (err,data){
         if (err){
@@ -65,7 +65,7 @@ router.post('/updateList',function(req,res){
     // res.json({'status':0,"msg":"success"});
 });
 
-router.post('/removeList',function (req,res){
+router.delete('/List',function (req,res){
     var id = req.body.id;
     listModel.deleteOne({'_id':id},function(err,data){
         if(err){
